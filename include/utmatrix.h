@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const int MAX_VECTOR_SIZE = 100000000;
+const int MAX_VECTOR_SIZE = 10000000;
 const int MAX_MATRIX_SIZE = 10000;
 
 // Шаблон вектора
