@@ -86,51 +86,101 @@ TVector<ValType>::~TVector()
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
+    return pVector[pos-StartIndex];
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator==(const TVector &v) const
 {
+    bool tmp=0;
+    int i=0;
+    if (Size==v.Size)
+        while ((pVector[i]==v.pVector[i])&&(i<Size)) i++;
+    if (i==Size) tmp=1;
+    return tmp;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
 {
+    bool tmp=1;
+    int i=0;
+    if (Size==v.Size)
+        while ((pVector[i]==v.pVector[i])&&(i<Size)) i++;
+    if (i==Size) tmp=0;
+    return tmp;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
+    if (this!=&v)
+    {
+        if (Size!=v.Size)
+        {
+            delete[] pVector;
+            pVector=new ValType[v.Size];
+        }
+        Size=v.Size;
+        StartIndex=v.StartIndex;
+        for (int i=0;i<Size;i++)
+            pVector[i]=v.pVector[i];
+    }
+    return *this;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // прибавить скаляр
 TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 {
+    TVector<ValType> res(*this);
+    for (int i=0;i<Size;i++)
+        res.pVector[i]=res.pVector[i]+val;
+    return res;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // вычесть скаляр
 TVector<ValType> TVector<ValType>::operator-(const ValType &val)
 {
+    TVector<ValType> res(*this);
+    for (int i=0;i<Size;i++)
+        res.pVector[i]=res.pVector[i]-val;
+    return res;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // умножить на скаляр
 TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 {
+    TVector<ValType> res(*this);
+    for (int i=0;i<Size;i++)
+        res.pVector[i]=res.pVector[i]*val;
+    return res;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
+    TVector<ValType> res(*this);
+    for (int i=0;i<Size;i++)
+        res.pVector[i]=res.pVector[i]+v.pVector[i];
+    return res;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
+    TVector<ValType> res(*this);
+    for (int i=0;i<Size;i++)
+        res.pVector[i]=res.pVector[i]-v.pVector[i];
+    return res;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
+    ValType res=0;
+	for (int i=0; i<Size; i++)
+		res=res+v.pVector[i]*pVector[i];
+	return res;
 } /*-------------------------------------------------------------------------*/
 
 
