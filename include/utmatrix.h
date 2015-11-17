@@ -9,6 +9,7 @@
 #define __TMATRIX_H__
 
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -53,8 +54,10 @@ public:
   }
   friend ostream& operator<<(ostream &out, const TVector &v)
   {
+	for (int i = 0; i < v.StartIndex; i++)
+      out << "    0 ";
     for (int i = 0; i < v.Size; i++)
-      out << v.pVector[i] << ' ';
+      out <<setw(5)<< v.pVector[i] << ' ';
     return out;
   }
 };
@@ -299,8 +302,8 @@ TMatrix<ValType> TMatrix<ValType>::operator*(const TMatrix<ValType> &mt)
 	for (int j=0;j<Size;j++)
 	{
 		TVector<ValType> tmpvec(j+1,0);
-		for (int i=0;i<=j;i++) tmpvec.pVector[i]=mt.pVector[i].pVector[j-i];
-		for (int i=0;i<=j;i++) res.pVector[i].pVector[j-i]=pVector[i]*tmpvec;
+		for (int i=0;i<=j;i++) tmpvec[i]=mt.pVector[i][j];
+		for (int i=0;i<=j;i++) res.pVector[i][j]=pVector[i]*tmpvec;
 	}
 	return res;
 } /*-------------------------------------------------------------------------*/
