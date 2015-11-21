@@ -97,7 +97,7 @@ bool TVector<ValType>::operator==(const TVector &v) const
     bool tmp=0;
     int i=0;
     if (Size==v.Size)
-        while ((pVector[i]==v.pVector[i])&&(i<Size)) i++;
+        while ((i<Size)&&(pVector[i]==v.pVector[i])) i++;
     if (i==Size) tmp=1;
     return tmp;
 } /*-------------------------------------------------------------------------*/
