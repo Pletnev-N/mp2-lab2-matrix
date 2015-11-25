@@ -26,12 +26,14 @@ TEST(TMatrix, can_create_copied_matrix)
 
 TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 {
-  ADD_FAILURE();
+  TMatrix<int> m(5), m1(m);
+  EXPECT_EQ(m,m1);
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
-  ADD_FAILURE();
+  TMatrix<int> m(5), m1(m);
+  EXPECT_NE(&m,&m1);
 }
 
 TEST(TMatrix, can_get_size)
